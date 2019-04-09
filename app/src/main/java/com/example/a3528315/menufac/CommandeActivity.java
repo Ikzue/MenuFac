@@ -7,9 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
+import com.example.a3528315.menufac.classes.*;
+
+import java.util.List;
 
 public class CommandeActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
+    DB database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,9 @@ public class CommandeActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
+        ListView listView = findViewById(R.id.ActivityCommandeListePlats);
+
     }
     public void incrementer(View sender){
         String s = (String) sender.getTag().toString();

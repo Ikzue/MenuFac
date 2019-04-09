@@ -26,128 +26,13 @@
                 android:inputType="none"
                 android:focusable = "false"
                 android:text="Plats" />
-
-            <LinearLayout
+            <ListView
+                android:id="@+id/ActivityCommandeListePlats"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/Plat1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:text="Plat 1" />
+            </ListView>
 
-                <Button
-                    android:id="@+id/minus1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:onClick="decrementer"
-                    android:tag="number1"
-                    android:text="-" />
-
-                <EditText
-                    android:id="@+id/number1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="0" />
-
-                <Button
-                    android:id="@+id/plus1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:onClick="incrementer"
-                    android:tag="number1"
-                    android:text="+" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/Plat2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:text="Plat 2" />
-
-                <Button
-                    android:id="@+id/minus2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:onClick="decrementer"
-                    android:tag="number2"
-                    android:text="-" />
-
-                <EditText
-                    android:id="@+id/number2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="0" />
-
-                <Button
-                    android:id="@+id/plus2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:onClick="incrementer"
-                    android:tag="number2"
-                    android:text="+" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/Plat3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:text="Plat 2" />
-
-                <Button
-                    android:id="@+id/minus3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:onClick="decrementer"
-                    android:tag="number3"
-                    android:text="-" />
-
-                <EditText
-                    android:id="@+id/number3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="0" />
-
-                <Button
-                    android:id="@+id/plus3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:onClick="incrementer"
-                    android:tag="number3"
-                    android:text="+" />
-            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 
