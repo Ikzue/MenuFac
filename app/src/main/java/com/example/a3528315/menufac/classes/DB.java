@@ -8,18 +8,18 @@ import java.util.List;
  */
 
 public class DB {
-    private static List<Plat> entrees;
-    private static List<Plat> plats;
-    private static List<Plat> desserts;
-    private static List<Plat> boissons;
-    private static List<Menu> menus;
+    private static List<CommandItem> entrees;
+    private static List<CommandItem> plats;
+    private static List<CommandItem> desserts;
+    private static List<CommandItem> boissons;
+    private static List<CommandItem> menus;
 
     public static void initRestaurant() {
-        entrees = new ArrayList<Plat>();
-        plats = new ArrayList<Plat>();
-        desserts = new ArrayList<Plat>();
-        boissons = new ArrayList<Plat>();
-        menus = new ArrayList<Menu>();
+        entrees = new ArrayList<CommandItem>();
+        plats = new ArrayList<CommandItem>();
+        desserts = new ArrayList<CommandItem>();
+        boissons = new ArrayList<CommandItem>();
+        menus = new ArrayList<CommandItem>();
 
         Plat e1 = new Entree("Salade",5.0f);
         Plat e2 = new Entree("Soupe",7.0f);
@@ -55,19 +55,19 @@ public class DB {
         menus.add(m1);
         menus.add(m2);
     }
-    public List<Plat> getEntrees(){
+    public static List<CommandItem> getEntrees(){
         return entrees;
     }
-    public List<Plat> getPlats(){
+    public static List<CommandItem> getPlats(){
         return plats;
     }
-    public List<Plat> getDesserts(){
+    public static List<CommandItem> getDesserts(){
         return desserts;
     }
-    public List<Plat> getBoissons(){
+    public static List<CommandItem> getBoissons(){
         return boissons;
     }
-    public List<Menu> getMenus(){
+    public static List<CommandItem> getMenus(){
         return menus;
     }
 }

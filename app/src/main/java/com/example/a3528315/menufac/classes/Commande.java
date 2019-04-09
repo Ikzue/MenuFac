@@ -9,22 +9,22 @@ import java.util.List;
 
 public class Commande {
     private int id;
-    private List<Plat> listPlats;
+    private List<CommandItem> listPlats;
 
     public Commande(int id){
-        this(id, new ArrayList<Plat>());
+        this(id, new ArrayList<CommandItem>());
     }
 
-    public Commande(int id, List<Plat> p){
+    public Commande(int id, List<CommandItem> p){
         this.id = id;
         this.listPlats = p;
     }
 
-    public void addPlat(Plat p){
+    public void addPlat(CommandItem p){
         listPlats.add(p);
     }
 
-    public void addAllPlat(List<Plat> p){
+    public void addAllPlat(List<CommandItem> p){
         listPlats.addAll(p);
     }
 }

@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/plats"
-            android:title="@string/plats" />
-        <item
-            android:id="@+id/entrees"
+            android:id="@+id/drawer_entree"
             android:title="@string/entrees" />
         <item
-            android:id="@+id/desserts"
+            android:id="@+id/drawer_plat"
+            android:title="@string/plats" />
+        <item
+            android:id="@+id/drawer_dessert"
             android:title="@string/desserts" />
         <item
-            android:id="@+id/panier"
+            android:id="@+id/drawer_panier"
             android:title="@string/panier" />
     </group>
 
