@@ -5,7 +5,7 @@ package com.example.a3528315.menufac.classes;
  */
 
 public class Menu extends CommandItem {
-    String nom;
+    private String nom;
     private Plat entree;
     private Plat plat;
     private Plat dessert;
@@ -19,6 +19,7 @@ public class Menu extends CommandItem {
         this.dessert = dessert;
         this.boisson = boisson;
     }
+
     public String toString(){
         return nom;
     }
