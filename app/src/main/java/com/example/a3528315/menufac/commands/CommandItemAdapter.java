@@ -43,11 +43,11 @@ public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
                 @Override
                 public void onClick(View v) {
                     int nbPlats = Integer.valueOf(viewHolder.numberPlat.getText().toString());
-                    if(nbPlats > 0)
+                    if(nbPlats > 0) {
                         nbPlats -= 1;
+                        removeItem(viewHolder.namePlat.getText().toString());
+                    }
                     viewHolder.numberPlat.setText(String.valueOf(nbPlats));
-
-                    //TODO modif objet commande
                 }
             });
 
@@ -60,8 +60,7 @@ public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
                     int nbPlats = Integer.valueOf(viewHolder.numberPlat.getText().toString());
                     nbPlats += 1;
                     viewHolder.numberPlat.setText(String.valueOf(nbPlats));
-                    addPlat(viewHolder.namePlat.getText().toString());
-                    //TODO modif objet commande
+                    addItem(viewHolder.namePlat.getText().toString());
                 }
             });
 
@@ -93,8 +92,25 @@ public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
 
         return convertView;
     }
-    private void addPlat(String nameplat){
+    private void addItem(String nameplat){
         //System.out.println(nameplat);
+        CommandItem p = createItem(nameplat);
+        addPlatTableActuelle(p);
+    }
+    private void removeItem(String nameplat){
+        List<CommandItem> commandeActuelle = getTableActuelle();
+        for(CommandItem item:commandeActuelle){
+            if(nameplat.equals(item.toString())){
+                commandeActuelle.remove(item);
+                break;
+            }
+        }
+    }
+    public void addPlatTableActuelle(CommandItem p) {
+        List<CommandItem> commandeActuelle = getTableActuelle();
+        commandeActuelle.add(p);
+    }
+    public CommandItem createItem(String nameplat){
         CommandItem p = null;
         switch(nameplat){
             case "Salade" : p = new Plat("Salade",5.0f);break;
@@ -124,38 +140,41 @@ public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
                 Plat b2 = new Boisson("Vin",7.0f);
                 p =  new Menu("Menu Soir",19.0f,e2, p2, d2, b2);
         }
-        addPlatTableActuelle(p);
+        return p;
     }
-    public void addPlatTableActuelle(CommandItem p) {
+
+    public List<CommandItem> getTableActuelle() {
+        List<CommandItem> list = null;
         switch(table) {
             case ActivityConstants.ACTIVITY_1:
-                DB.table1.add(p);
+                list = DB.table1;
                 break;
             case ActivityConstants.ACTIVITY_2:
-                DB.table2.add(p);
+                list = DB.table2;
                 break;
             case ActivityConstants.ACTIVITY_3:
-                DB.table3.add(p);
+                list = DB.table3;
                 break;
             case ActivityConstants.ACTIVITY_4:
-                DB.table4.add(p);
+                list = DB.table4;
                 break;
             case ActivityConstants.ACTIVITY_5:
-                DB.table5.add(p);
+                list = DB.table5;
                 break;
             case ActivityConstants.ACTIVITY_6:
-                DB.table6.add(p);
+                list = DB.table6;
                 break;
             case ActivityConstants.ACTIVITY_7:
-                DB.table7.add(p);
+                list = DB.table7;
                 break;
             case ActivityConstants.ACTIVITY_8:
-                DB.table8.add(p);
+                list = DB.table8;
                 break;
             case ActivityConstants.ACTIVITY_9:
-                DB.table9.add(p);
+                list = DB.table9;
                 break;
         }
+        return list;
     }
     private class PlatViewHolder {
         public TextView namePlat;
