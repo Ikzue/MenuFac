@@ -4,4 +4,6 @@
     <string name="plats">Plats</string>
     <string name="desserts">Desserts</string>
     <string name="panier">Panier</string>
+    <string name="boissons">Boissons</string>
+    <string name="menus">Menus</string>
 </resources>

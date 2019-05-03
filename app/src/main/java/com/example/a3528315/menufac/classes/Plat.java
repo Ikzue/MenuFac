@@ -5,7 +5,13 @@ package com.example.a3528315.menufac.classes;
  */
 
 public class Plat extends CommandItem {
-    Plat(String nom, float prix) {
+    String nom;
+    public Plat(String nom, float prix) {
         super(nom,prix);
+        this.nom = nom;
     }
+    public String toString(){
+        return nom;
+    }
+
 }

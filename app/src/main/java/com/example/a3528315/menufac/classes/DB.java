@@ -13,13 +13,30 @@ public class DB {
     private static List<CommandItem> desserts;
     private static List<CommandItem> boissons;
     private static List<CommandItem> menus;
-
+    public static List<CommandItem> table1;
+    public static List<CommandItem> table2;
+    public static List<CommandItem> table3;
+    public static List<CommandItem> table4;
+    public static List<CommandItem> table5;
+    public static List<CommandItem> table6;
+    public static List<CommandItem> table7;
+    public static List<CommandItem> table8;
+    public static List<CommandItem> table9;
     public static void initRestaurant() {
         entrees = new ArrayList<CommandItem>();
         plats = new ArrayList<CommandItem>();
         desserts = new ArrayList<CommandItem>();
         boissons = new ArrayList<CommandItem>();
         menus = new ArrayList<CommandItem>();
+        table1 = new ArrayList<CommandItem>();
+        table2 = new ArrayList<CommandItem>();
+        table3 = new ArrayList<CommandItem>();
+        table4 = new ArrayList<CommandItem>();
+        table5 = new ArrayList<CommandItem>();
+        table6 = new ArrayList<CommandItem>();
+        table7 = new ArrayList<CommandItem>();
+        table8 = new ArrayList<CommandItem>();
+        table9 = new ArrayList<CommandItem>();
 
         Plat e1 = new Entree("Salade",5.0f);
         Plat e2 = new Entree("Soupe",7.0f);

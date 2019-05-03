@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import com.example.a3528315.menufac.classes.*;
+import com.example.a3528315.menufac.commands.ActivityConstants;
 import com.example.a3528315.menufac.commands.CommandItemAdapter;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 public class CommandeActivity extends AppCompatActivity {
     private Context c;
     private ListView listePlats;
+    private int table;
 
     private DrawerLayout drawerLayout;
 
@@ -24,7 +26,7 @@ public class CommandeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commande);
-
+        table =  getIntent().getIntExtra("calling-activity",0);
         c = getBaseContext();
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -40,29 +42,44 @@ public class CommandeActivity extends AppCompatActivity {
 
                         // Add code here to update the UI based on the item selected
                         List<CommandItem> items = null;
+                        String titre = "";
                         switch (menuItem.getItemId()) {
                             case R.id.drawer_entree:
                                 items = DB.getEntrees();
+                                titre = "Entrees";
                                 break;
 
                             case R.id.drawer_plat:
                                 items = DB.getPlats();
+                                titre = "Plats";
                                 break;
 
                             case R.id.drawer_dessert:
                                 items = DB.getDesserts();
+                                titre = "Desserts";
+                                break;
+                            case R.id.drawer_boisson:
+                                items = DB.getBoissons();
+                                titre = "Boissons";
+                                break;
+                            case R.id.drawer_menus:
+                                items = DB.getMenus();
+                                titre = "Menus";
+                                break;
+                            case R.id.drawer_panier:
+                                items = getTableActuelle();
+                                titre = "Panier table "+Integer.toString(table);
                                 break;
 
-                            /*case R.id.drawer_boisson:
-                                items = DB.getEntrees();
-                                break;*/
 
 
                         }
 
                         if (items != null) {
-                            CommandItemAdapter adapter = new CommandItemAdapter(c, items);
+                            CommandItemAdapter adapter = new CommandItemAdapter(c, items,table);
                             listePlats.setAdapter(adapter);
+                            EditText editText = findViewById(R.id.editText);
+                            editText.setText(titre);
                         }
 
 
@@ -75,9 +92,43 @@ public class CommandeActivity extends AppCompatActivity {
         listePlats = findViewById(R.id.ActivityCommandeListePlats);
 
         //TODO lequel est défaut ?
-        CommandItemAdapter adapter = new CommandItemAdapter(c, DB.getPlats());
+        CommandItemAdapter adapter = new CommandItemAdapter(c, DB.getPlats(), table);
         listePlats.setAdapter(adapter);
 
+    }
+
+    public List<CommandItem> getTableActuelle() {
+        List<CommandItem> list = null;
+        switch(table) {
+            case ActivityConstants.ACTIVITY_1:
+                list = DB.table1;
+                break;
+            case ActivityConstants.ACTIVITY_2:
+                list = DB.table2;
+                break;
+            case ActivityConstants.ACTIVITY_3:
+                list = DB.table3;
+                break;
+            case ActivityConstants.ACTIVITY_4:
+                list = DB.table4;
+                break;
+            case ActivityConstants.ACTIVITY_5:
+                list = DB.table5;
+                break;
+            case ActivityConstants.ACTIVITY_6:
+                list = DB.table6;
+                break;
+            case ActivityConstants.ACTIVITY_7:
+                list = DB.table7;
+                break;
+            case ActivityConstants.ACTIVITY_8:
+                list = DB.table8;
+                break;
+            case ActivityConstants.ACTIVITY_9:
+                list = DB.table9;
+                break;
+        }
+        return list;
     }
 
     /*

@@ -5,7 +5,7 @@ package com.example.a3528315.menufac.classes;
  */
 
 public class Boisson extends Plat {
-    Boisson(String nom, float prix) {
+    public Boisson(String nom, float prix) {
         super(nom, prix);
     }
 }

@@ -11,6 +11,12 @@
             android:id="@+id/drawer_dessert"
             android:title="@string/desserts" />
         <item
+            android:id="@+id/drawer_boisson"
+            android:title="@string/boissons" />
+        <item
+            android:id="@+id/drawer_menus"
+            android:title="@string/menus" />
+        <item
             android:id="@+id/drawer_panier"
             android:title="@string/panier" />
     </group>
