@@ -15,51 +15,43 @@ import com.example.a3528315.menufac.classes.CommandItem;
 import com.example.a3528315.menufac.classes.DB;
 
 import java.util.List;
+import java.util.Locale;
 
-public class PanierItemAdapter extends ArrayAdapter<CommandItem> {
+public class TableItemAdapter extends ArrayAdapter<CommandItem> {
     private int table;
 
-    public PanierItemAdapter(@NonNull Context context, @NonNull List<CommandItem> commandItems, int table) {
+    public TableItemAdapter(@NonNull Context context, @NonNull List<CommandItem> commandItems, int table) {
         super(context, 0, commandItems);
         this.table = table;
-
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        final PanierViewHolder viewHolder;
+        final PlatViewHolder viewHolder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.panier_plat, parent, false);
-            viewHolder = new PanierViewHolder();
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_plat, parent, false);
+            viewHolder = new PlatViewHolder();
             viewHolder.namePlat = (TextView) convertView.findViewById(R.id.itemPlat_name);
-
-            viewHolder.minusBtn = (Button) convertView.findViewById(R.id.itemPlat_minus);
-            viewHolder.minusBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DB.removeCommandItem(viewHolder.namePlat.getText().toString());
-                    //TODO Trigger ListView reload
-                }
-            });
+            viewHolder.prixPlat = (TextView) convertView.findViewById(R.id.itemPlat_prix);
 
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (PanierViewHolder) convertView.getTag();
+            viewHolder = (PlatViewHolder) convertView.getTag();
         }
 
         CommandItem commandItem = getItem(position);
 
         if(commandItem != null) {
             viewHolder.namePlat.setText(commandItem.getNom());
+            viewHolder.prixPlat.setText(String.format(Locale.FRENCH,"%f €", commandItem.getPrix()));
         }
 
         return convertView;
     }
 
-    private class PanierViewHolder {
+    private class PlatViewHolder {
         private TextView namePlat;
-        private Button minusBtn;
-
+        private TextView prixPlat;
     }
 }

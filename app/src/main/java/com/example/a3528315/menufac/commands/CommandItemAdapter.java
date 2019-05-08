@@ -23,7 +23,7 @@ import com.example.a3528315.menufac.classes.PlatPrincipal;
 
 import java.util.List;
 
-public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
+public class CommandItemAdapter extends ArrayAdapter<CommandItem> {
     private int table;
 
     public CommandItemAdapter(@NonNull Context context, @NonNull List<CommandItem> commandItems, int table) {
@@ -46,7 +46,6 @@ public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
                 public void onClick(View v) {
                     int nbPlats = Integer.valueOf(viewHolder.numberPlat.getText().toString());
                     if(nbPlats > 0) {
-                        //removeItem(viewHolder.namePlat.getText().toString());
                         if(DB.removeCommandItem(viewHolder.namePlat.getText().toString()))
                             nbPlats -= 1;
                     }
@@ -61,7 +60,6 @@ public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
                 @Override
                 public void onClick(View v) {
                     int nbPlats = Integer.valueOf(viewHolder.numberPlat.getText().toString());
-                    //addItem(viewHolder.namePlat.getText().toString());
                     if(DB.addCommandItem(viewHolder.namePlat.getText().toString()))
                         nbPlats += 1;
                     viewHolder.numberPlat.setText(String.valueOf(nbPlats));

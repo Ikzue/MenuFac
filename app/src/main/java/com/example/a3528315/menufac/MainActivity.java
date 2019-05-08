@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent,1);
     }
     public void creerCommande2(View view){
-        Intent intent = new Intent(this, CommandeActivity.class );
+        Intent intent = new Intent(this, TableActivity.class );
         intent.putExtra("calling-activity", ActivityConstants.ACTIVITY_2);
         startActivityForResult(intent,1);
     }

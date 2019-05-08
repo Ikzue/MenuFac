@@ -17,6 +17,7 @@ package="com.example.a3528315.menufac">
         </intent-filter>
     </activity>
     <activity android:name=".CommandeActivity"/>
+    <activity android:name=".TableActivity"/>
 </application>
 
 </manifest>

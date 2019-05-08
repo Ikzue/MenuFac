@@ -55,8 +55,7 @@ public class CommandeActivity extends AppCompatActivity {
                 List<CommandItem> items = null;
                 String titre = "";
                 Drawable actionIcon = getDrawable(R.drawable.ic_round_navigate_next_24px);
-
-                boolean ispanier=false;
+                boolean isPanier=false;
 
                 switch (menuItem.getItemId()) {
                     default:
@@ -87,25 +86,21 @@ public class CommandeActivity extends AppCompatActivity {
                         items = DB.getTempCommand();
                         titre = "Panier table " + Integer.toString(table);
                         actionIcon = getDrawable(R.drawable.ic_round_check_24px);
-                        ispanier=true;
+                        isPanier=true;
                         break;
-
-
                 }
 
                 if (items != null) {
                     ListAdapter adapter;
-                    if(ispanier) {
+                    if(isPanier) {
                         adapter = new PanierItemAdapter(c, items, table);
-                    }else {
-
+                    } else {
                         adapter = new CommandItemAdapter(c, items, table);
                     }
                         listePlats.setAdapter(adapter);
                         EditText editText = findViewById(R.id.ActivityCommandeViewName);
                         editText.setText(titre);
                         actionBtn.setImageDrawable(actionIcon);
-
                 }
 
                 // For example, swap UI fragments here
