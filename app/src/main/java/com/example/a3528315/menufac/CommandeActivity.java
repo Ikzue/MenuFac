@@ -12,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import com.example.a3528315.menufac.classes.*;
 import com.example.a3528315.menufac.commands.ActivityConstants;
 import com.example.a3528315.menufac.commands.CommandItemAdapter;
+import com.example.a3528315.menufac.commands.PanierItemAdapter;
 
 import java.util.List;
 
@@ -53,6 +55,9 @@ public class CommandeActivity extends AppCompatActivity {
                 List<CommandItem> items = null;
                 String titre = "";
                 Drawable actionIcon = getDrawable(R.drawable.ic_round_navigate_next_24px);
+
+                boolean ispanier=false;
+
                 switch (menuItem.getItemId()) {
                     default:
                     case R.id.drawer_entree:
@@ -82,17 +87,25 @@ public class CommandeActivity extends AppCompatActivity {
                         items = DB.getTempCommand();
                         titre = "Panier table " + Integer.toString(table);
                         actionIcon = getDrawable(R.drawable.ic_round_check_24px);
+                        ispanier=true;
                         break;
 
 
                 }
 
                 if (items != null) {
-                    CommandItemAdapter adapter = new CommandItemAdapter(c, items, table);
-                    listePlats.setAdapter(adapter);
-                    EditText editText = findViewById(R.id.ActivityCommandeViewName);
-                    editText.setText(titre);
-                    actionBtn.setImageDrawable(actionIcon);
+                    ListAdapter adapter;
+                    if(ispanier) {
+                        adapter = new PanierItemAdapter(c, items, table);
+                    }else {
+
+                        adapter = new CommandItemAdapter(c, items, table);
+                    }
+                        listePlats.setAdapter(adapter);
+                        EditText editText = findViewById(R.id.ActivityCommandeViewName);
+                        editText.setText(titre);
+                        actionBtn.setImageDrawable(actionIcon);
+
                 }
 
                 // For example, swap UI fragments here
