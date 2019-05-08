@@ -21,6 +21,7 @@ import com.example.a3528315.menufac.classes.Menu;
 import com.example.a3528315.menufac.classes.Plat;
 import com.example.a3528315.menufac.classes.PlatPrincipal;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class CommandItemAdapter extends ArrayAdapter<CommandItem> {
@@ -75,9 +76,17 @@ public class CommandItemAdapter extends ArrayAdapter<CommandItem> {
 
         if(commandItem != null) {
             viewHolder.namePlat.setText(commandItem.getNom());
+            int cpt = 0, i;
+            List<CommandItem> listed = DB.getTempCommand();
 
-            //TODO init nombre plats en fonction de la commande
-            viewHolder.numberPlat.setText("0");
+            for( i=0; i< listed.size();i++) {
+                if (listed.get(i).getNom().equals((commandItem.getNom()))) {
+                    cpt++;
+                }
+            }
+
+
+            viewHolder.numberPlat.setText(""+cpt);
         }
 
         return convertView;
