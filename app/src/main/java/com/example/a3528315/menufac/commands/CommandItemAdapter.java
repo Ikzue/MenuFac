@@ -25,76 +25,50 @@ import java.util.List;
 
 public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
     private int table;
-    private boolean ispanier;
 
-    public CommandItemAdapter(@NonNull Context context, @NonNull List<CommandItem> commandItems, int table, boolean panier) {
+    public CommandItemAdapter(@NonNull Context context, @NonNull List<CommandItem> commandItems, int table) {
         super(context, 0, commandItems);
         this.table = table;
-        this.ispanier = panier;
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         final PlatViewHolder viewHolder;
-        final PlatPanierViewHolder viewPanierHolder;
-
         if (convertView == null) {
-           // convertView = LayoutInflater.from(getContext()).inflate(R.layout.panier_plat, parent, false);
-            if (ispanier) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.panier_plat, parent, false);
-                viewPanierHolder = new PlatPanierViewHolder();
-                viewPanierHolder.namePlat = (TextView) convertView.findViewById(R.id.itemPlat_name);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_plat, parent, false);
+            viewHolder = new PlatViewHolder();
+            viewHolder.namePlat = (TextView) convertView.findViewById(R.id.itemPlat_name);
 
-                viewPanierHolder.minusBtn = (Button) convertView.findViewById(R.id.itemPlat_minus);
-                viewPanierHolder.minusBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                            //removeItem(viewHolder.namePlat.getText().toString());
-                            DB.removeCommandItem(viewPanierHolder.namePlat.getText().toString());
-
-
+            viewHolder.minusBtn = (Button) convertView.findViewById(R.id.itemPlat_minus);
+            viewHolder.minusBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int nbPlats = Integer.valueOf(viewHolder.numberPlat.getText().toString());
+                    if(nbPlats > 0) {
+                        //removeItem(viewHolder.namePlat.getText().toString());
+                        if(DB.removeCommandItem(viewHolder.namePlat.getText().toString()))
+                            nbPlats -= 1;
                     }
-                });
+                    viewHolder.numberPlat.setText(String.valueOf(nbPlats));
+                }
+            });
 
-                convertView.setTag(viewPanierHolder);
+            viewHolder.numberPlat = (EditText) convertView.findViewById(R.id.itemPlat_number);
 
-            }else {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_plat, parent, false);
-                viewHolder = new PlatViewHolder();
-                viewHolder.namePlat = (TextView) convertView.findViewById(R.id.itemPlat_name);
+            viewHolder.plusBtn = (Button) convertView.findViewById(R.id.itemPlat_plus);
+            viewHolder.plusBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int nbPlats = Integer.valueOf(viewHolder.numberPlat.getText().toString());
+                    //addItem(viewHolder.namePlat.getText().toString());
+                    if(DB.addCommandItem(viewHolder.namePlat.getText().toString()))
+                        nbPlats += 1;
+                    viewHolder.numberPlat.setText(String.valueOf(nbPlats));
+                }
+            });
 
-                viewHolder.minusBtn = (Button) convertView.findViewById(R.id.itemPlat_minus);
-                viewHolder.minusBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int nbPlats = Integer.valueOf(viewHolder.numberPlat.getText().toString());
-                        if (nbPlats > 0) {
-                            //removeItem(viewHolder.namePlat.getText().toString());
-                            if (DB.removeCommandItem(viewHolder.namePlat.getText().toString()))
-                                nbPlats -= 1;
-                        }
-                        viewHolder.numberPlat.setText(String.valueOf(nbPlats));
-                    }
-                });
-
-                viewHolder.numberPlat = (EditText) convertView.findViewById(R.id.itemPlat_number);
-
-                viewHolder.plusBtn = (Button) convertView.findViewById(R.id.itemPlat_plus);
-                viewHolder.plusBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int nbPlats = Integer.valueOf(viewHolder.numberPlat.getText().toString());
-                        //addItem(viewHolder.namePlat.getText().toString());
-                        if (DB.addCommandItem(viewHolder.namePlat.getText().toString()))
-                            nbPlats += 1;
-                        viewHolder.numberPlat.setText(String.valueOf(nbPlats));
-                    }
-                });
-
-                convertView.setTag(viewHolder);
-
-            }
+            convertView.setTag(viewHolder);
         } else {
             viewHolder = (PlatViewHolder) convertView.getTag();
         }
@@ -102,14 +76,10 @@ public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
         CommandItem commandItem = getItem(position);
 
         if(commandItem != null) {
+            viewHolder.namePlat.setText(commandItem.getNom());
 
-            if(!ispanier) {
-                //TODO init nombre plats en fonction de la commande
-                viewHolder.namePlat.setText(commandItem.getNom());
-                viewHolder.numberPlat.setText("0");
-            }else{
-                viewPanierHolder.namePlat.setText(commandItem.getNom());
-            }
+            //TODO init nombre plats en fonction de la commande
+            viewHolder.numberPlat.setText("0");
         }
 
         return convertView;
@@ -121,12 +91,4 @@ public class CommandItemAdapter  extends ArrayAdapter<CommandItem> {
         private EditText numberPlat;
         private Button plusBtn;
     }
-
-    private class PlatPanierViewHolder {
-        private TextView namePlat;
-        private Button minusBtn;
-
-    }
-
-
 }
