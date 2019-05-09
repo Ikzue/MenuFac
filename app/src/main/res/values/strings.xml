@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Menu</string>
+    <string name="app_name">MenuFac</string>
     <string name="entrees">Entrees</string>
     <string name="plats">Plats</string>
     <string name="desserts">Desserts</string>
