@@ -10,6 +10,7 @@ import java.util.Map;
  */
 
 public class DB {
+    private static boolean isInit = false;
     private static List<CommandItem> entrees;
     private static List<CommandItem> plats;
     private static List<CommandItem> desserts;
@@ -22,58 +23,66 @@ public class DB {
     private static List<CommandItem> tempCommand;
 
     public static void initRestaurant() {
-        entrees = new ArrayList<CommandItem>();
-        plats = new ArrayList<CommandItem>();
-        desserts = new ArrayList<CommandItem>();
-        boissons = new ArrayList<CommandItem>();
-        menus = new ArrayList<CommandItem>();
+        initRestaurant(false);
+    }
 
-        tables = new HashMap<Integer, Commande>();
+    public static void initRestaurant(boolean force) {
+        if (!isInit || force) {
+            entrees = new ArrayList<CommandItem>();
+            plats = new ArrayList<CommandItem>();
+            desserts = new ArrayList<CommandItem>();
+            boissons = new ArrayList<CommandItem>();
+            menus = new ArrayList<CommandItem>();
 
-        restaurantMap = new Integer[][]{
-                {1, 2, 3, 0, 13, -1},
-                {5, 4, 6, 0, 14, -1},
-                {7, 8, 9, 0, 15, -1},
-                {10, 11, 12, 0, 0, 0},
-                {0, 0, 0, 0, 16, 17},
-                {22, 23, 0, 0, 18, 19},
-                {24, 25, 0, 0, 20, 21},
-                {26, 27, 0, 0, 0, 0},
-        };
+            tables = new HashMap<Integer, Commande>();
 
-        Plat e1 = new Entree("Salade",5.0f);
-        Plat e2 = new Entree("Soupe",7.0f);
-        Plat e3 = new Entree("Fromage",4.0f);
+            restaurantMap = new Integer[][]{
+                    {1, 2, 3, 0, 13, -1},
+                    {5, 4, 6, 0, 14, -1},
+                    {7, 8, 9, 0, 15, -1},
+                    {10, 11, 12, 0, 0, 0},
+                    {0, 0, 0, 0, 16, 17},
+                    {22, 23, 0, 0, 18, 19},
+                    {24, 25, 0, 0, 20, 21},
+                    {26, 27, 0, 0, 0, 0},
+            };
 
-        Plat p1 = new PlatPrincipal("Boeuf",12.0f);
-        Plat p2 = new PlatPrincipal("Poulet",10.0f);
-        Plat p3 = new PlatPrincipal("Poisson",11.0f);
+            Plat e1 = new Entree("Salade", 5.0f);
+            Plat e2 = new Entree("Soupe", 7.0f);
+            Plat e3 = new Entree("Fromage", 4.0f);
 
-        Plat d1 = new Dessert("Tarte",4.0f);
-        Plat d2 = new Dessert("Gateau",3.0f);
+            Plat p1 = new PlatPrincipal("Boeuf", 12.0f);
+            Plat p2 = new PlatPrincipal("Poulet", 10.0f);
+            Plat p3 = new PlatPrincipal("Poisson", 11.0f);
 
-        Plat b1 = new Boisson("Cola",3.0f);
-        Plat b2 = new Boisson("Vin",7.0f);
+            Plat d1 = new Dessert("Tarte", 4.0f);
+            Plat d2 = new Dessert("Gateau", 3.0f);
 
-        Menu m1 = new Menu("Menu Midi",16.0f, e1, p1, d1, b1);
-        Menu m2 = new Menu("Menu Soir",19.0f, e2, p2, d2, b2);
+            Plat b1 = new Boisson("Cola", 3.0f);
+            Plat b2 = new Boisson("Vin", 7.0f);
 
-        entrees.add(e1);
-        entrees.add(e2);
-        entrees.add(e3);
+            Menu m1 = new Menu("Menu Midi", 16.0f, e1, p1, d1, b1);
+            Menu m2 = new Menu("Menu Soir", 19.0f, e2, p2, d2, b2);
 
-        plats.add(p1);
-        plats.add(p2);
-        plats.add(p3);
+            entrees.add(e1);
+            entrees.add(e2);
+            entrees.add(e3);
 
-        desserts.add(d1);
-        desserts.add(d2);
+            plats.add(p1);
+            plats.add(p2);
+            plats.add(p3);
 
-        boissons.add(b1);
-        boissons.add(b2);
+            desserts.add(d1);
+            desserts.add(d2);
 
-        menus.add(m1);
-        menus.add(m2);
+            boissons.add(b1);
+            boissons.add(b2);
+
+            menus.add(m1);
+            menus.add(m2);
+
+            isInit = true;
+        }
     }
     public static List<CommandItem> getEntrees(){
         return entrees;
