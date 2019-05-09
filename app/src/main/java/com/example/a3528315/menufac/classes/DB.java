@@ -16,6 +16,7 @@ public class DB {
     private static List<CommandItem> boissons;
     private static List<CommandItem> menus;
 
+    private static Integer[][] restaurantMap;
     private static Map<Integer, Commande> tables;
 
     private static List<CommandItem> tempCommand;
@@ -28,6 +29,17 @@ public class DB {
         menus = new ArrayList<CommandItem>();
 
         tables = new HashMap<Integer, Commande>();
+
+        restaurantMap = new Integer[][]{
+                {1, 2, 3, 0, 13, -1},
+                {5, 4, 6, 0, 14, -1},
+                {7, 8, 9, 0, 15, -1},
+                {10, 11, 12, 0, 0, 0},
+                {0, 0, 0, 0, 16, 17},
+                {22, 23, 0, 0, 18, 19},
+                {24, 25, 0, 0, 20, 21},
+                {26, 27, 0, 0, 0, 0},
+        };
 
         Plat e1 = new Entree("Salade",5.0f);
         Plat e2 = new Entree("Soupe",7.0f);
@@ -81,6 +93,7 @@ public class DB {
     public static List<CommandItem> getTempCommand() {
         return tempCommand;
     }
+
     public static void setTempCommand() {
         setTempCommand(new ArrayList<CommandItem>());
     }
@@ -124,6 +137,10 @@ public class DB {
             }
         }
         return false;
+    }
+
+    public static Integer[][] getRestaurantMap() {
+        return restaurantMap;
     }
 
     public static Commande getTable(int table) {
