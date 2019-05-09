@@ -1,5 +1,7 @@
 package com.example.a3528315.menufac.classes;
 
+import android.support.annotation.NonNull;
+
 public class CommandItem {
     private String nom;
     private float prix;

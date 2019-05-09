@@ -1,28 +1,23 @@
-package com.example.a3528315.menufac.commands;
+package com.example.a3528315.menufac.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.a3528315.menufac.R;
 import com.example.a3528315.menufac.classes.CommandItem;
-import com.example.a3528315.menufac.classes.DB;
 
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class TableItemAdapter extends ArrayAdapter<CommandItem> {
-    private int table;
+public class TableItemAdapter extends AbstractCommandItemAdapter {
 
-    public TableItemAdapter(@NonNull Context context, @NonNull List<CommandItem> commandItems, int table) {
-        super(context, 0, commandItems);
-        this.table = table;
+    public TableItemAdapter(@NonNull Context context, @NonNull List<CommandItem> commandItems) {
+        super(context, commandItems);
     }
 
     @NonNull
@@ -30,10 +25,10 @@ public class TableItemAdapter extends ArrayAdapter<CommandItem> {
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         final PlatViewHolder viewHolder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_plat, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.table_plat, parent, false);
             viewHolder = new PlatViewHolder();
-            viewHolder.namePlat = (TextView) convertView.findViewById(R.id.itemPlat_name);
-            viewHolder.prixPlat = (TextView) convertView.findViewById(R.id.itemPlat_prix);
+            viewHolder.namePlat = convertView.findViewById(R.id.itemPlat_name);
+            viewHolder.prixPlat = convertView.findViewById(R.id.itemPlat_prix);
 
             convertView.setTag(viewHolder);
         } else {
@@ -44,10 +39,17 @@ public class TableItemAdapter extends ArrayAdapter<CommandItem> {
 
         if(commandItem != null) {
             viewHolder.namePlat.setText(commandItem.getNom());
-            viewHolder.prixPlat.setText(String.format(Locale.FRENCH,"%f €", commandItem.getPrix()));
+
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.FRANCE);
+            viewHolder.prixPlat.setText(currencyFormat.format(commandItem.getPrix()));
         }
 
         return convertView;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 
     private class PlatViewHolder {

@@ -1,4 +1,4 @@
-package com.example.a3528315.menufac.commands;
+package com.example.a3528315.menufac;
 
 /**
  * Created by 3528315 on 03/05/19.

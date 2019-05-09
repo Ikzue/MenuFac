@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.a3528315.menufac.classes.DB;
-import com.example.a3528315.menufac.commands.ActivityConstants;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         DB.initRestaurant();
     }
     public void creerCommande1(View view){
-        Intent intent = new Intent(this, CommandeActivity.class );
+        Intent intent = new Intent(this, TableActivity.class );
         intent.putExtra("calling-activity", ActivityConstants.ACTIVITY_1);
         startActivityForResult(intent,1);
     }
@@ -27,37 +26,37 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent,1);
     }
     public void creerCommande3(View view){
-        Intent intent = new Intent(this, CommandeActivity.class );
+        Intent intent = new Intent(this, TableActivity.class );
         intent.putExtra("calling-activity", ActivityConstants.ACTIVITY_3);
         startActivityForResult(intent,1);
     }
     public void creerCommande4(View view){
-        Intent intent = new Intent(this, CommandeActivity.class );
+        Intent intent = new Intent(this, TableActivity.class );
         intent.putExtra("calling-activity", ActivityConstants.ACTIVITY_4);
         startActivityForResult(intent,1);
     }
     public void creerCommande5(View view){
-        Intent intent = new Intent(this, CommandeActivity.class );
+        Intent intent = new Intent(this, TableActivity.class );
         intent.putExtra("calling-activity", ActivityConstants.ACTIVITY_5);
         startActivityForResult(intent,1);
     }
     public void creerCommande6(View view){
-        Intent intent = new Intent(this, CommandeActivity.class );
+        Intent intent = new Intent(this, TableActivity.class );
         intent.putExtra("calling-activity", ActivityConstants.ACTIVITY_6);
         startActivityForResult(intent,1);
     }
     public void creerCommande7(View view){
-        Intent intent = new Intent(this, CommandeActivity.class );
+        Intent intent = new Intent(this, TableActivity.class );
         intent.putExtra("calling-activity", ActivityConstants.ACTIVITY_7);
         startActivityForResult(intent,1);
     }
     public void creerCommande8(View view){
-        Intent intent = new Intent(this, CommandeActivity.class );
+        Intent intent = new Intent(this, TableActivity.class );
         intent.putExtra("calling-activity", ActivityConstants.ACTIVITY_8);
         startActivityForResult(intent,1);
     }
     public void creerCommande9(View view){
-        Intent intent = new Intent(this, CommandeActivity.class );
+        Intent intent = new Intent(this, TableActivity.class );
         intent.putExtra("calling-activity", ActivityConstants.ACTIVITY_9);
         startActivityForResult(intent,1);
     }

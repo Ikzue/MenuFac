@@ -1,12 +1,15 @@
 package com.example.a3528315.menufac;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,9 +18,8 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import com.example.a3528315.menufac.classes.*;
-import com.example.a3528315.menufac.commands.ActivityConstants;
-import com.example.a3528315.menufac.commands.CommandItemAdapter;
-import com.example.a3528315.menufac.commands.PanierItemAdapter;
+import com.example.a3528315.menufac.adapters.PanierItemAdapter;
+import com.example.a3528315.menufac.adapters.PlatItemAdapter;
 
 import java.util.List;
 
@@ -38,9 +40,7 @@ public class CommandeActivity extends AppCompatActivity {
         table =  getIntent().getIntExtra("calling-activity",0);
         c = getBaseContext();
 
-        DB.setTempCommand(DB.getTable(table));
-
-        System.out.println(DB.getTempCommand().toString());
+        DB.setTempCommand();
 
         drawerLayout = findViewById(R.id.drawer_layout);
         listener = new NavigationView.OnNavigationItemSelectedListener() {
@@ -52,8 +52,8 @@ public class CommandeActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
 
                 // Add code here to update the UI based on the item selected
-                List<CommandItem> items = null;
-                String titre = "";
+                List<CommandItem> items;
+                String titre;
                 Drawable actionIcon = getDrawable(R.drawable.ic_round_navigate_next_24px);
                 boolean isPanier=false;
 
@@ -93,9 +93,9 @@ public class CommandeActivity extends AppCompatActivity {
                 if (items != null) {
                     ListAdapter adapter;
                     if(isPanier) {
-                        adapter = new PanierItemAdapter(c, items, table);
+                        adapter = new PanierItemAdapter(c, items);
                     } else {
-                        adapter = new CommandItemAdapter(c, items, table);
+                        adapter = new PlatItemAdapter(c, items);
                     }
                         listePlats.setAdapter(adapter);
                         EditText editText = findViewById(R.id.ActivityCommandeViewName);
@@ -135,14 +135,49 @@ public class CommandeActivity extends AppCompatActivity {
                             mItem.setChecked(true);
                             break;
                         case R.id.drawer_panier:
-                            //TODO Valider modif en cours & return menu
-                            DB.updateTable(table, DB.getTempCommand());
+                            new AlertDialog.Builder(CommandeActivity.this)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setTitle("Confirm command")
+                                    .setMessage("Are you sure you want to confirm this command?")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            DB.updateTable(table, DB.getTempCommand());
+                                            finish();
+                                        }
+                                    })
+                                    .setNegativeButton("No", null)
+                                    .create()
+                                    .show();
                             break;
                     }
                 }
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(CommandeActivity.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Confirm cancel")
+                .setMessage("Are you sure you want to cancel this command?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Commande ctable = DB.getTable(table);
+                        if (ctable==null) {
+                            Intent i=new Intent(CommandeActivity.this, MainActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                        } else {
+                            finish();
+                        }
+                    }
+                })
+                .setNegativeButton("No", null)
+                .create()
+                .show();
     }
 
     private int getCheckedItem(NavigationView navigationView) {

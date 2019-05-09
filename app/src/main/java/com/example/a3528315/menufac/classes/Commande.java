@@ -8,15 +8,16 @@ import java.util.List;
  */
 
 public class Commande {
+    private static int count = 0;
     private int id;
     private List<CommandItem> listPlats;
 
-    public Commande(int id){
-        this(id, new ArrayList<CommandItem>());
+    public Commande(){
+        this(new ArrayList<CommandItem>());
     }
 
-    public Commande(int id, List<CommandItem> p){
-        this.id = id;
+    public Commande(List<CommandItem> p){
+        this.id = ++count;
         this.listPlats = p;
     }
 
@@ -26,5 +27,9 @@ public class Commande {
 
     public void addAllPlat(List<CommandItem> p){
         listPlats.addAll(p);
+    }
+
+    public List<CommandItem> getListPlats() {
+        return listPlats;
     }
 }

@@ -1,9 +1,9 @@
 package com.example.a3528315.menufac.classes;
 
-import com.example.a3528315.menufac.commands.ActivityConstants;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 3528315 on 09/04/19.
@@ -16,15 +16,7 @@ public class DB {
     private static List<CommandItem> boissons;
     private static List<CommandItem> menus;
 
-    private static List<CommandItem> table1;
-    private static List<CommandItem> table2;
-    private static List<CommandItem> table3;
-    private static List<CommandItem> table4;
-    private static List<CommandItem> table5;
-    private static List<CommandItem> table6;
-    private static List<CommandItem> table7;
-    private static List<CommandItem> table8;
-    private static List<CommandItem> table9;
+    private static Map<Integer, Commande> tables;
 
     private static List<CommandItem> tempCommand;
 
@@ -34,15 +26,8 @@ public class DB {
         desserts = new ArrayList<CommandItem>();
         boissons = new ArrayList<CommandItem>();
         menus = new ArrayList<CommandItem>();
-        table1 = new ArrayList<CommandItem>();
-        table2 = new ArrayList<CommandItem>();
-        table3 = new ArrayList<CommandItem>();
-        table4 = new ArrayList<CommandItem>();
-        table5 = new ArrayList<CommandItem>();
-        table6 = new ArrayList<CommandItem>();
-        table7 = new ArrayList<CommandItem>();
-        table8 = new ArrayList<CommandItem>();
-        table9 = new ArrayList<CommandItem>();
+
+        tables = new HashMap<Integer, Commande>();
 
         Plat e1 = new Entree("Salade",5.0f);
         Plat e2 = new Entree("Soupe",7.0f);
@@ -96,6 +81,9 @@ public class DB {
     public static List<CommandItem> getTempCommand() {
         return tempCommand;
     }
+    public static void setTempCommand() {
+        setTempCommand(new ArrayList<CommandItem>());
+    }
     public static void setTempCommand(List<CommandItem> command) {
         tempCommand = command;
     }
@@ -138,70 +126,22 @@ public class DB {
         return false;
     }
 
-    public static List<CommandItem> getTable(int table) {
-        List<CommandItem> list = null;
-        switch(table) {
-            case ActivityConstants.ACTIVITY_1:
-                list = DB.table1;
-                break;
-            case ActivityConstants.ACTIVITY_2:
-                list = DB.table2;
-                break;
-            case ActivityConstants.ACTIVITY_3:
-                list = DB.table3;
-                break;
-            case ActivityConstants.ACTIVITY_4:
-                list = DB.table4;
-                break;
-            case ActivityConstants.ACTIVITY_5:
-                list = DB.table5;
-                break;
-            case ActivityConstants.ACTIVITY_6:
-                list = DB.table6;
-                break;
-            case ActivityConstants.ACTIVITY_7:
-                list = DB.table7;
-                break;
-            case ActivityConstants.ACTIVITY_8:
-                list = DB.table8;
-                break;
-            case ActivityConstants.ACTIVITY_9:
-                list = DB.table9;
-                break;
-        }
-        return new ArrayList<CommandItem>(list);
+    public static Commande getTable(int table) {
+        if(tables.containsKey(table))
+            return tables.get(table);
+
+        return null;
     }
 
     public static void updateTable(int table, List<CommandItem> commandItems) {
         List<CommandItem> command = new ArrayList<CommandItem>(commandItems);
-        switch(table) {
-            case ActivityConstants.ACTIVITY_1:
-                table1 = command;
-                break;
-            case ActivityConstants.ACTIVITY_2:
-                table2 = command;
-                break;
-            case ActivityConstants.ACTIVITY_3:
-                table3 = command;
-                break;
-            case ActivityConstants.ACTIVITY_4:
-                table4 = command;
-                break;
-            case ActivityConstants.ACTIVITY_5:
-                table5 = command;
-                break;
-            case ActivityConstants.ACTIVITY_6:
-                table6 = command;
-                break;
-            case ActivityConstants.ACTIVITY_7:
-                table7 = command;
-                break;
-            case ActivityConstants.ACTIVITY_8:
-                table8 = command;
-                break;
-            case ActivityConstants.ACTIVITY_9:
-                table9= command;
-                break;
-        }
+        if(!tables.containsKey(table))
+            tables.put(table, new Commande(commandItems));
+        else
+            tables.get(table).addAllPlat(command);
+    }
+
+    public static void clearTable(int table) {
+        tables.remove(table);
     }
 }
