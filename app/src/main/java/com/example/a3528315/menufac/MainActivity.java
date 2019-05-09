@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     view = new Button(this);
                     int table = restaurant[i][j];
 
-                    //((Button) view).setText(String.format("T %s",table));
-                    ((Button) view).setText("T "+table);
+                    ((Button) view).setText(String.format("T %s",table));
                     view.setId(table);
                     view.setOnClickListener(new View.OnClickListener() {
                         @Override

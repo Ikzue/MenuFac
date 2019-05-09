@@ -32,4 +32,9 @@ public class Commande {
     public List<CommandItem> getListPlats() {
         return listPlats;
     }
+
+    @Override
+    public String toString() {
+        return "Commande#"+id;
+    }
 }

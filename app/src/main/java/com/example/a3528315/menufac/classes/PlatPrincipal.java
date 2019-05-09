@@ -5,7 +5,6 @@ package com.example.a3528315.menufac.classes;
  */
 
 public class PlatPrincipal extends Plat {
-
     public PlatPrincipal(String nom, float prix) {
         super(nom, prix);
     }
