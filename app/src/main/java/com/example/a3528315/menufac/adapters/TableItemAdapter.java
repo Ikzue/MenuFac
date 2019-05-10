@@ -52,6 +52,9 @@ public class TableItemAdapter extends AbstractCommandItemAdapter {
         super.notifyDataSetChanged();
     }
 
+    /**
+     * Voir table_item.xml
+     */
     private class PlatViewHolder {
         private TextView namePlat;
         private TextView prixPlat;

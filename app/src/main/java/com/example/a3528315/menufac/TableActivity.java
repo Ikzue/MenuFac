@@ -11,10 +11,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.a3528315.menufac.adapters.TableItemAdapter;
 import com.example.a3528315.menufac.classes.Commande;
 import com.example.a3528315.menufac.classes.DB;
-import com.example.a3528315.menufac.adapters.TableItemAdapter;
 
+/**
+ * Activité Table
+ * Affiche l'ensemble de la commande validée pour la table
+ */
 public class TableActivity extends AppCompatActivity {
     private Context c;
     private ListView listePlats;
@@ -33,6 +37,7 @@ public class TableActivity extends AppCompatActivity {
         actionAddBtn = findViewById(R.id.ActivityTableActionAddBtn);
         actionPaidBtn = findViewById(R.id.ActivityTableActionPaidBtn);
 
+        // Cliquer sur le bouton, envoie vers la création de commande (ou ajout)
         actionAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +47,7 @@ public class TableActivity extends AppCompatActivity {
             }
         });
 
+        // Vider la commande d'une table et retourner à l'accueil (libérer la table car les clients ont payés ou sont partis)
         actionPaidBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +59,9 @@ public class TableActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 DB.clearTable(table);
-                                finish();
+                                Intent i = new Intent(TableActivity.this, MainActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
                             }
                         })
                         .setNegativeButton("No", null)
@@ -70,9 +78,11 @@ public class TableActivity extends AppCompatActivity {
         String titre = String.format("Table %s", table);
 
         if (ctable != null) {
+            // Charger la liste des plats commandés
             TableItemAdapter adapter = new TableItemAdapter(c, ctable.getListPlats());
             listePlats.setAdapter(adapter);
         } else {
+            // Si il n'y a pas de commande, aller directement en création
             actionAddBtn.performClick();
         }
         EditText editText = findViewById(R.id.ActivityTableViewName);

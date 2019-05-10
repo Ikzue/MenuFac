@@ -17,9 +17,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import com.example.a3528315.menufac.classes.*;
+
 import com.example.a3528315.menufac.adapters.PanierItemAdapter;
 import com.example.a3528315.menufac.adapters.PlatItemAdapter;
+import com.example.a3528315.menufac.classes.CommandItem;
+import com.example.a3528315.menufac.classes.Commande;
+import com.example.a3528315.menufac.classes.DB;
 
 import java.util.List;
 
@@ -57,6 +60,7 @@ public class CommandeActivity extends AppCompatActivity {
                 Drawable actionIcon = getDrawable(R.drawable.ic_round_navigate_next_24px);
                 boolean isPanier=false;
 
+                // Cas drawer sélectionné
                 switch (menuItem.getItemId()) {
                     default:
                     case R.id.drawer_entree:
@@ -86,7 +90,7 @@ public class CommandeActivity extends AppCompatActivity {
                         items = DB.getTempCommand();
                         titre = "Panier table " + Integer.toString(table);
                         actionIcon = getDrawable(R.drawable.ic_round_check_24px);
-                        isPanier=true;
+                        isPanier = true;
                         break;
                 }
 
@@ -118,7 +122,7 @@ public class CommandeActivity extends AppCompatActivity {
         listener.onNavigationItemSelected(defaultItem);
         defaultItem.setChecked(true);
 
-
+        // Bouton pour faciliter le déplacement avant des drawer
         actionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +139,7 @@ public class CommandeActivity extends AppCompatActivity {
                             mItem.setChecked(true);
                             break;
                         case R.id.drawer_panier:
+                            // Ici le bouton permet de valider une commande
                             new AlertDialog.Builder(CommandeActivity.this)
                                     .setIcon(android.R.drawable.ic_dialog_alert)
                                     .setTitle("Confirm command")
@@ -158,6 +163,7 @@ public class CommandeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        // Ajout d'une confirmation avant de quitter l'Avtivité (cela videra le panier en cours)
         new AlertDialog.Builder(CommandeActivity.this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Confirm cancel")
@@ -167,10 +173,12 @@ public class CommandeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Commande ctable = DB.getTable(table);
                         if (ctable==null) {
-                            Intent i=new Intent(CommandeActivity.this, MainActivity.class);
+                            // Si la table n'a pas de commande retour à l'accueil
+                            Intent i = new Intent(CommandeActivity.this, MainActivity.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                         } else {
+                            // Retour Activité précédente
                             finish();
                         }
                     }
